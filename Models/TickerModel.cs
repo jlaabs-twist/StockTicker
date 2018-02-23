@@ -7,10 +7,11 @@ using System.Threading;
 
 namespace Models
 {
-    public class TickerModel
+    public class TickerModel:IDisposable
     {
         string _name;
         int _price;
+        bool _stop = false;
 
         public event EventHandler<int> PriceChanged;
 
@@ -23,9 +24,7 @@ namespace Models
         {
             get { return _price; }
         }
-
-        public bool Stop { get; set; }
-
+        
         /// <summary>
         /// Constructor
         /// </summary>
@@ -38,7 +37,7 @@ namespace Models
             _price = rnd.Next(0, 1000);
 
             Task.Run(() => UpdatePrice(refreshTime));
-        }
+        }       
 
         /// <summary>
         /// Loop to update the stock price
@@ -47,7 +46,7 @@ namespace Models
         void UpdatePrice(int refreshTime)
         {
             Random rnd = new Random();
-            while (!Stop)
+            while (!_stop)
             {
                 int priceChange = rnd.Next(-10, 10);
                 _price += priceChange;
@@ -55,11 +54,16 @@ namespace Models
 
                 Thread.Sleep(refreshTime);
             }
-        }
+        }        
 
         void OnPriceChanged(int priceChange)
         {
             PriceChanged?.Invoke(this, priceChange);
+        }
+
+        public void Dispose()
+        {
+            _stop = true;
         }
     }
 }

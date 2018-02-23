@@ -17,11 +17,13 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-        <TextBox Height="30" Text="TickerName" Margin="10,10,10,10" FontSize="20"/>
+        <TextBox Height="30" Text="{Binding Name, Mode=OneWay}" Margin="10,10,10,10" FontSize="20"/>
 
-        <TextBox Height="30" Width="80" Grid.Row="2" Text="Price" Margin="10,10,10,10" FontSize="20"/>
+        <TextBox Height="30" Width="80" Grid.Row="2" Text="{Binding Price, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="10,10,10,10" FontSize="20"/>
         
-        <TextBox Text="Up/Down" Grid.Row="2" Grid.Column="2" Background="Green"/>
+        <TextBox Text="{Binding PriceChange, Mode=OneWay}" Grid.Row="2" Grid.Column="2" Background="{Binding Color, Mode=OneWay}" FontSize="24" TextAlignment="Center" />
+        
+        <Button Command="{Binding Dispose}" Grid.Column="2" Content="Remove" Background="Red"/>
 
     </Grid>
 </UserControl>
