@@ -9,11 +9,33 @@
       Title="TickersView">
 
     <StackPanel Background="LightGray">
-        <local:AddTickerView HorizontalAlignment="Center" Margin="50"/>
+        <Grid HorizontalAlignment="Center" Background="LightGray" Margin="50">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+
+            <Label Content="Add Ticker" FontSize="18"/>
+
+            <TextBox Grid.Column="2" Text="{Binding NewName, Mode=OneWay}" FontSize="18"/>
+
+            <Button Width="60" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" Content="Add" Command="{Binding CreateTicker}"/>
+
+        </Grid>
 
         <WrapPanel>
-            <local:TickerView/>
-            <local:TickerView/>
+            <ItemsControl ItemsSource="{Binding Tickers, Mode=OneWay}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <local:TickerView DataContext="{Binding }"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </WrapPanel>
     </StackPanel>
 </Page>

@@ -71,16 +71,7 @@ namespace ViewModels
 
         public ICommand Stop
         {
-            get
-            {
-                if(_stopCommand == null)
-                {
-                    _stopCommand = new RelayCommand(
-                        param => Remove(),
-                        param => CanStop());
-                }
-                return _stopCommand;
-            }
+            get { return _stopCommand; }
         }
 
         public TickerViewModel(TickerModel ticker)
@@ -91,6 +82,8 @@ namespace ViewModels
             _priceChange = 0;
 
             _ticker.PriceChanged += Price_Changed;
+
+            _stopCommand = new RelayCommand(param => Remove(), param => CanStop());
         }        
 
         public void Price_Changed(object sender, int priceChange)
