@@ -24,6 +24,13 @@ namespace ViewModels
         public string NewName
         {
             get { return _newName; }
+            set
+            {
+                if(_newName != value)
+                {
+                    _newName = value;
+                }
+            }
         }
 
         public ICommand CreateTicker

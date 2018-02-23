@@ -18,10 +18,6 @@ namespace StockTicker
         public TickerView()
         {
             InitializeComponent();
-
-            TickerModel ticker = new TickerModel("GOOG", 300);
-            TickerViewModel viewModel = new TickerViewModel(ticker);
-            DataContext = viewModel;
         }
     }
 }

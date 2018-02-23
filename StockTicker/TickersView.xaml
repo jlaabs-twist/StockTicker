@@ -22,7 +22,7 @@
 
             <Label Content="Add Ticker" FontSize="18"/>
 
-            <TextBox Grid.Column="2" Text="{Binding NewName, Mode=OneWay}" FontSize="18"/>
+            <TextBox Grid.Column="2" Text="{Binding NewName, Mode=TwoWay}" FontSize="18"/>
 
             <Button Width="60" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" Content="Add" Command="{Binding CreateTicker}"/>
 
