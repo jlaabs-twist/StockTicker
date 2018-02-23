@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using System.ComponentModel;
 using Models;
 
@@ -15,6 +16,8 @@ namespace ViewModels
         string _name;
         int _price;
         int _priceChange;
+
+        ICommand _stopCommand;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -66,6 +69,20 @@ namespace ViewModels
             }
         }
 
+        public ICommand Stop
+        {
+            get
+            {
+                if(_stopCommand == null)
+                {
+                    _stopCommand = new RelayCommand(
+                        param => Remove(),
+                        param => CanStop());
+                }
+                return _stopCommand;
+            }
+        }
+
         public TickerViewModel(TickerModel ticker)
         {
             _ticker = ticker;
@@ -86,6 +103,16 @@ namespace ViewModels
         {
             PropertyChangedEventArgs args = new PropertyChangedEventArgs(property);
             PropertyChanged?.Invoke(this, args);
+        }
+
+        bool CanStop()
+        {
+            return true;
+        }
+
+        void Remove()
+        {
+            Dispose();
         }
 
         #region IDisposable Support

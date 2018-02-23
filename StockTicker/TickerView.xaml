@@ -23,7 +23,7 @@
         
         <TextBox Text="{Binding PriceChange, Mode=OneWay}" Grid.Row="2" Grid.Column="2" Background="{Binding Color, Mode=OneWay}" FontSize="24" TextAlignment="Center" />
         
-        <Button Command="{Binding Dispose}" Grid.Column="2" Content="Remove" Background="Red"/>
+        <Button Command="{Binding Stop}" Grid.Column="2" Content="Remove" Background="Red"/>
 
     </Grid>
 </UserControl>

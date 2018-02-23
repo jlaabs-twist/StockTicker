@@ -13,6 +13,7 @@
 
         <WrapPanel>
             <local:TickerView/>
+            <local:TickerView/>
         </WrapPanel>
     </StackPanel>
 </Page>
