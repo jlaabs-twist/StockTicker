@@ -54,19 +54,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AddTickerView.xaml.cs">
-      <DependentUpon>AddTickerView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="TickerView.xaml.cs">
       <DependentUpon>TickerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="TickersView.xaml.cs">
       <DependentUpon>TickersView.xaml</DependentUpon>
     </Compile>
-    <Page Include="AddTickerView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
