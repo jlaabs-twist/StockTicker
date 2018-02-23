@@ -9,6 +9,7 @@ namespace Models
 {
     public class TickerModel:IDisposable
     {
+        const int RefreshTime = 250;
         string _name;
         int _price;
         bool _stop = false;
@@ -29,21 +30,19 @@ namespace Models
         /// Constructor
         /// </summary>
         /// <param name="name">Stock Name</param>
-        /// <param name="refreshTime">Refresh time in mS</param>
-        public TickerModel(string name, int refreshTime)
+        public TickerModel(string name)
         {
             _name = name;
             Random rnd = new Random();
             _price = rnd.Next(0, 1000);
 
-            Task.Run(() => UpdatePrice(refreshTime));
+            Task.Run(() => UpdatePrice());
         }       
 
         /// <summary>
         /// Loop to update the stock price
         /// </summary>
-        /// <param name="refreshTime">Time for updating stock in mS</param>
-        void UpdatePrice(int refreshTime)
+        void UpdatePrice()
         {
             Random rnd = new Random();
             while (!_stop)
@@ -52,7 +51,7 @@ namespace Models
                 _price += priceChange;
                 OnPriceChanged(priceChange);
 
-                Thread.Sleep(refreshTime);
+                Thread.Sleep(RefreshTime);
             }
         }        
 

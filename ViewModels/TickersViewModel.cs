@@ -54,7 +54,7 @@ namespace ViewModels
 
         void AddTicker()
         {
-            TickerModel ticker = new TickerModel(_newName, 300);
+            TickerModel ticker = new TickerModel(_newName);
             _tickers.Add(new TickerViewModel(ticker));
         }
 
