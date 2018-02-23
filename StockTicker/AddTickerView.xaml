@@ -13,9 +13,16 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
         <Label Content="Add Ticker" FontSize="18"/>
 
-        <TextBox Grid.Column="2" Text="Price" FontSize="18"/>
+        <TextBox Grid.Column="2" Text="Name" FontSize="18"/>
+
+        <Button Width="60" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" Content="Add"/>
 
     </Grid>
 </UserControl>
