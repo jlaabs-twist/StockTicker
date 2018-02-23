@@ -9,7 +9,7 @@
       Title="TickersView">
 
     <StackPanel Background="LightGray">
-        <Grid HorizontalAlignment="Center" Background="LightGray" Margin="50">
+        <Grid HorizontalAlignment="Center" Background="LightGray" Margin="10,50,10,10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="100"/>
@@ -27,6 +27,8 @@
             <Button Width="60" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" Content="Add" Command="{Binding CreateTicker}"/>
 
         </Grid>
+
+        <Button Content="Remove" Width="80" Background="Red" Command="{Binding RemoveTicker}"/>
 
         <WrapPanel>
             <ItemsControl ItemsSource="{Binding Tickers, Mode=OneWay}">

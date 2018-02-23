@@ -13,6 +13,7 @@ namespace ViewModels
     {
         ObservableCollection<TickerViewModel> _tickers;
         ICommand _createTicker;
+        ICommand _removeTicker;
 
         string _newName;
 
@@ -38,11 +39,17 @@ namespace ViewModels
             get { return _createTicker; }
         }
 
+        public ICommand RemoveTicker
+        {
+            get { return _removeTicker; }
+        }
+
         public TickersViewModel()
         {
             _tickers = new ObservableCollection<TickerViewModel>();
             _newName = "Name";
             _createTicker = new RelayCommand(param => AddTicker(), param =>CanAddTicker());
+            _removeTicker = new RelayCommand(param => RemoveTickerExecute(), param => CanRemoveTicker());
         }
 
         void AddTicker()
@@ -54,6 +61,18 @@ namespace ViewModels
         bool CanAddTicker()
         {
             return true;
+        }
+
+        void RemoveTickerExecute()
+        {
+            int lastIndex = _tickers.Count - 1;
+            _tickers[lastIndex].Dispose();
+            _tickers.RemoveAt(lastIndex);
+        }
+
+        bool CanRemoveTicker()
+        {
+            return _tickers.Count >= 1;
         }
     }
 }
