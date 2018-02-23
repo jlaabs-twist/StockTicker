@@ -17,8 +17,6 @@ namespace ViewModels
         int _price;
         int _priceChange;
 
-        ICommand _stopCommand;
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         public string Name
@@ -69,11 +67,6 @@ namespace ViewModels
             }
         }
 
-        public ICommand Stop
-        {
-            get { return _stopCommand; }
-        }
-
         public TickerViewModel(TickerModel ticker)
         {
             _ticker = ticker;
@@ -82,8 +75,6 @@ namespace ViewModels
             _priceChange = 0;
 
             _ticker.PriceChanged += Price_Changed;
-
-            _stopCommand = new RelayCommand(param => Remove(), param => CanStop());
         }        
 
         public void Price_Changed(object sender, int priceChange)
@@ -96,16 +87,6 @@ namespace ViewModels
         {
             PropertyChangedEventArgs args = new PropertyChangedEventArgs(property);
             PropertyChanged?.Invoke(this, args);
-        }
-
-        bool CanStop()
-        {
-            return true;
-        }
-
-        void Remove()
-        {
-            Dispose();
         }
 
         #region IDisposable Support

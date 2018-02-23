@@ -6,24 +6,23 @@
              xmlns:local="clr-namespace:StockTicker"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="200">
-    <Grid x:Name="tickerGrid" Background="Gray">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+    <Border BorderBrush="Aqua" BorderThickness="1">
+        <Grid x:Name="tickerGrid" Background="Gray" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="50"/>
+            </Grid.ColumnDefinitions>
 
-        <TextBox Height="30" Text="{Binding Name, Mode=OneWay}" Margin="10,10,10,10" FontSize="20"/>
+            <TextBox Height="30" Text="{Binding Name, Mode=OneWay}" Margin="10,10,10,10" FontSize="20"/>
 
-        <TextBox Height="30" Width="80" Grid.Row="2" Text="{Binding Price, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="10,10,10,10" FontSize="20"/>
-        
-        <TextBox Text="{Binding PriceChange, Mode=OneWay}" Grid.Row="2" Grid.Column="2" Background="{Binding Color, Mode=OneWay}" FontSize="24" TextAlignment="Center" />
-        
-        <Button Command="{Binding Stop}" Grid.Column="2" Content="Remove" Background="Red"/>
+            <TextBox Height="30" Width="80" Grid.Row="2" Text="{Binding Price, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="10,10,10,10" FontSize="20"/>
 
-    </Grid>
+            <TextBox Text="{Binding PriceChange, Mode=OneWay}" Grid.RowSpan="2" Grid.Column="2" Background="{Binding Color, Mode=OneWay}" FontSize="24" TextAlignment="Center" VerticalAlignment="Center"/>
+        </Grid>
+    </Border>
 </UserControl>
