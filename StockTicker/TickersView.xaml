@@ -30,14 +30,17 @@
 
         <Button Content="Remove" Width="80" Background="Red" Command="{Binding RemoveTicker}"/>
 
-        <WrapPanel>
-            <ItemsControl ItemsSource="{Binding Tickers, Mode=OneWay}">
+        <ItemsControl ItemsSource="{Binding Tickers, Mode=OneWay}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <local:TickerView DataContext="{Binding }"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </WrapPanel>
+        </ItemsControl>
     </StackPanel>
 </Page>
