@@ -5,10 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using Models;
-using ViewModels;
 
-namespace StockTicker
+namespace StockTicker.Views
 {
     /// <summary>
     /// Interaction logic for UserControl1.xaml

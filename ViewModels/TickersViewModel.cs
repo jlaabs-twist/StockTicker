@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
-using Models;
+using StockTicker.Models;
 
-namespace ViewModels
+namespace StockTicker.ViewModels
 {
     public class TickersViewModel
     {

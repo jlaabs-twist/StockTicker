@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{95236F76-96F7-458F-AAA5-0949764C1C5F}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>StockTicker</RootNamespace>
-    <AssemblyName>StockTicker</AssemblyName>
+    <RootNamespace>StockTicker.Startup</RootNamespace>
+    <AssemblyName>StockTicker.Startup</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -67,12 +67,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Bootstrapper.cs" />
-    <Compile Include="TickerView.xaml.cs">
-      <DependentUpon>TickerView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="TickersView.xaml.cs">
-      <DependentUpon>TickersView.xaml</DependentUpon>
-    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -85,14 +79,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="TickerView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="TickersView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -129,6 +115,10 @@
     <ProjectReference Include="..\ViewModels\ViewModels.csproj">
       <Project>{18913fbd-b246-4b55-89ed-27186498a858}</Project>
       <Name>ViewModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Views\Views.csproj">
+      <Project>{81308ed5-6dfe-451d-8452-80695e4a1c8f}</Project>
+      <Name>Views</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

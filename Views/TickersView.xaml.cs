@@ -12,9 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ViewModels;
 
-namespace StockTicker
+namespace StockTicker.Views
 {
     /// <summary>
     /// Interaction logic for TickersView.xaml
@@ -24,7 +23,7 @@ namespace StockTicker
         public TickersView()
         {
             InitializeComponent();
-            DataContext = new TickersViewModel();
+            //DataContext = new TickersViewModel();
         }
     }
 }
