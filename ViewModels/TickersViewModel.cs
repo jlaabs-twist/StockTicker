@@ -8,17 +8,18 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using StockTicker.Models;
 using StockTicker.Interfaces;
+using Caliburn.Micro;
 
 
 namespace StockTicker.ViewModels
 {
-    public class TickersViewModel : INotifyPropertyChanged
+    public class TickersViewModel: INotifyPropertyChanged
     {
         ITickerFactory _tickerFactory;
         ObservableCollection<TickerViewModel> _tickers;
 
         string _newName;
-        
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public ObservableCollection<TickerViewModel> Tickers
@@ -32,8 +33,8 @@ namespace StockTicker.ViewModels
             set
             {
                 if(_newName != value)
-                {
-                    _newName = value;
+                {                    
+                    _newName = value;                   
                 }
             }
         }
@@ -41,10 +42,6 @@ namespace StockTicker.ViewModels
         public bool CanRemoveTicker
         {
             get { return _tickers.Count >= 1; }
-        }
-        public TickersViewModel()
-        {
-            _newName = "Default";
         }
 
         public TickersViewModel(ITickerFactory tickerFactory)
@@ -58,11 +55,7 @@ namespace StockTicker.ViewModels
         {
             ITicker ticker = _tickerFactory.GetTicker(_newName);
             _tickers.Add(new TickerViewModel(ticker));
-        }
-
-        public bool CanAddTicker()
-        {
-            return true;
+            OnPropertyChanged("CanRemoveTicker");
         }
 
         public void RemoveTicker()
@@ -70,6 +63,12 @@ namespace StockTicker.ViewModels
             int lastIndex = _tickers.Count - 1;
             _tickers[lastIndex].Dispose();
             _tickers.RemoveAt(lastIndex);
+            OnPropertyChanged("CanRemoveTicker");
+        }
+
+        void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

@@ -30,13 +30,14 @@ namespace StockTicker
             builder.RegisterType<TickerFactory>().As<ITickerFactory>();
             builder.RegisterAssemblyTypes(AssemblySource.Instance.ToArray())
                 .Where(type => type.Name.EndsWith("ViewModel"))
-                .Where(type => type.GetInterface(typeof(INotifyPropertyChanged).Name) != null)
+                //.Where(type => type.GetInterface(typeof(INotifyPropertyChanged).Name) != null)
                 .AsSelf().InstancePerDependency();
-            _logger.Info("ViewModels bound");
+            _logger.Info("ViewModels built");
 
             builder.RegisterAssemblyTypes(AssemblySource.Instance.ToArray())
                 .Where(type => type.Name.EndsWith("View"))
                 .AsSelf().InstancePerDependency();
+            _logger.Info("Views built");
 
             builder.Register<IWindowManager>(c => new WindowManager()).InstancePerLifetimeScope();
             builder.Register<IEventAggregator>(c => new EventAggregator()).InstancePerLifetimeScope();
@@ -47,6 +48,7 @@ namespace StockTicker
         protected override object GetInstance(Type service, string key)
         {
             object obj = key == null ? _container.ResolveOptional(service) : _container.ResolveNamed(key, service);
+            _logger.Info(string.Format("{0} resolved", service));
             return obj;
         }
 
