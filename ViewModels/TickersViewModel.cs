@@ -12,8 +12,6 @@ namespace StockTicker.ViewModels
     public class TickersViewModel
     {
         ObservableCollection<TickerViewModel> _tickers;
-        ICommand _createTicker;
-        ICommand _removeTicker;
 
         string _newName;
 
@@ -34,45 +32,33 @@ namespace StockTicker.ViewModels
             }
         }
 
-        public ICommand CreateTicker
+        public bool CanRemoveTicker
         {
-            get { return _createTicker; }
-        }
-
-        public ICommand RemoveTicker
-        {
-            get { return _removeTicker; }
+            get { return _tickers.Count >= 1; }
         }
 
         public TickersViewModel()
         {
             _tickers = new ObservableCollection<TickerViewModel>();
             _newName = "Name";
-            _createTicker = new RelayCommand(param => AddTicker(), param =>CanAddTicker());
-            _removeTicker = new RelayCommand(param => RemoveTickerExecute(), param => CanRemoveTicker());
         }
 
-        void AddTicker()
+        public void AddTicker()
         {
             TickerModel ticker = new TickerModel(_newName);
             _tickers.Add(new TickerViewModel(ticker));
         }
 
-        bool CanAddTicker()
+        public bool CanAddTicker()
         {
             return true;
         }
 
-        void RemoveTickerExecute()
+        public void RemoveTicker()
         {
             int lastIndex = _tickers.Count - 1;
             _tickers[lastIndex].Dispose();
             _tickers.RemoveAt(lastIndex);
-        }
-
-        bool CanRemoveTicker()
-        {
-            return _tickers.Count >= 1;
         }
     }
 }
