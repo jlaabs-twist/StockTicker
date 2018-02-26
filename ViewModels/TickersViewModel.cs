@@ -5,15 +5,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using StockTicker.Models;
+using StockTicker.Interfaces;
+
 
 namespace StockTicker.ViewModels
 {
-    public class TickersViewModel
+    public class TickersViewModel : INotifyPropertyChanged
     {
+        ITickerFactory _tickerFactory;
         ObservableCollection<TickerViewModel> _tickers;
 
         string _newName;
+        
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public ObservableCollection<TickerViewModel> Tickers
         {
@@ -36,16 +42,21 @@ namespace StockTicker.ViewModels
         {
             get { return _tickers.Count >= 1; }
         }
-
         public TickersViewModel()
         {
+            _newName = "Default";
+        }
+
+        public TickersViewModel(ITickerFactory tickerFactory)
+        {
+            _tickerFactory = tickerFactory;
             _tickers = new ObservableCollection<TickerViewModel>();
             _newName = "Name";
         }
 
         public void AddTicker()
         {
-            TickerModel ticker = new TickerModel(_newName);
+            ITicker ticker = _tickerFactory.GetTicker(_newName);
             _tickers.Add(new TickerViewModel(ticker));
         }
 
