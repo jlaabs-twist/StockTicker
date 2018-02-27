@@ -12,6 +12,7 @@ namespace StockTicker.ViewModels
     public class TickerViewModel: IDisposable, INotifyPropertyChanged
     {
         ITicker _ticker;
+        IDisposable _priceChangeSubscription;
 
         string _name;
         int _price;
@@ -74,10 +75,10 @@ namespace StockTicker.ViewModels
             _price = _ticker.Price;
             _priceChange = 0;
 
-            _ticker.PriceChanged += Price_Changed;
+            _priceChangeSubscription = _ticker.PriceChanged.Subscribe(OnPriceChanged);
         }        
 
-        public void Price_Changed(object sender, int priceChange)
+        public void OnPriceChanged(int priceChange)
         {
             PriceChange = priceChange;
             Price += priceChange;            
@@ -93,8 +94,7 @@ namespace StockTicker.ViewModels
         public void Dispose()
         {
             if(_ticker != null)
-            {                
-                _ticker.PriceChanged -= Price_Changed;
+            {
                 _ticker.Dispose();
                 _ticker = null;
             }

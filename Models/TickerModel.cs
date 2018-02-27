@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using StockTicker.Interfaces;
+using System.Reactive.Subjects;
 
 namespace StockTicker.Models
 {
@@ -14,8 +15,7 @@ namespace StockTicker.Models
         string _name;
         int _price;
         bool _stop = false;
-
-        public event EventHandler<int> PriceChanged;
+        Subject<int> _priceChanged;
 
         public string Name
         {
@@ -25,6 +25,11 @@ namespace StockTicker.Models
         public int Price
         {
             get { return _price; }
+        }
+
+        public IObservable<int> PriceChanged
+        {
+            get { return _priceChanged; }
         }
         
         /// <summary>
@@ -36,6 +41,7 @@ namespace StockTicker.Models
             _name = name;
             Random rnd = new Random();
             _price = rnd.Next(0, 1000);
+            _priceChanged = new Subject<int>();
 
             Task.Run(() => UpdatePrice());
         }       
@@ -50,20 +56,20 @@ namespace StockTicker.Models
             {
                 int priceChange = rnd.Next(-10, 10);
                 _price += priceChange;
-                OnPriceChanged(priceChange);
+                ChangePrice(priceChange);
 
                 Thread.Sleep(RefreshTime);
             }
         }        
 
-        void OnPriceChanged(int priceChange)
+        void ChangePrice(int priceChange)
         {
-            PriceChanged?.Invoke(this, priceChange);
+            _priceChanged.OnNext(priceChange);
         }
 
         public void Dispose()
         {
             _stop = true;
-        }
+        }        
     }
 }

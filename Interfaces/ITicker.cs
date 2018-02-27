@@ -10,6 +10,6 @@ namespace StockTicker.Interfaces
     {
         string Name { get; }
         int Price { get; }
-        event EventHandler<int> PriceChanged;
+        IObservable<int> PriceChanged { get; }
     }
 }
