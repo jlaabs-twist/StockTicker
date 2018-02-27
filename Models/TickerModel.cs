@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using StockTicker.Interfaces;
 
 namespace StockTicker.Models
 {
-    public class TickerModel:IDisposable
+    public class TickerModel : ITicker, IDisposable
     {
         const int RefreshTime = 250;
         string _name;

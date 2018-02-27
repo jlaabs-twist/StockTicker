@@ -5,13 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.ComponentModel;
-using StockTicker.Models;
+using StockTicker.Interfaces;
 
 namespace StockTicker.ViewModels
 {
     public class TickerViewModel: IDisposable, INotifyPropertyChanged
     {
-        TickerModel _ticker;
+        ITicker _ticker;
 
         string _name;
         int _price;
@@ -67,7 +67,7 @@ namespace StockTicker.ViewModels
             }
         }
 
-        public TickerViewModel(TickerModel ticker)
+        public TickerViewModel(ITicker ticker)
         {
             _ticker = ticker;
             _name = _ticker.Name;
