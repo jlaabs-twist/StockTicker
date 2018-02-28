@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 using System.Threading;
 using StockTicker.Interfaces;
 using System.Reactive.Subjects;
+using System.Reactive.Linq;
 
 namespace StockTicker.Models
 {
-    public class TickerModel : ITicker, IDisposable
+    public class TickerModel : ITicker
     {
         const int RefreshTime = 250;
         string _name;
         int _price;
-        bool _stop = false;
-        Subject<int> _priceChanged;
+        IObservable<int> _priceChanged;
 
         public string Name
         {
@@ -41,35 +41,11 @@ namespace StockTicker.Models
             _name = name;
             Random rnd = new Random();
             _price = rnd.Next(0, 1000);
-            _priceChanged = new Subject<int>();
 
-            Task.Run(() => UpdatePrice());
-        }       
+            _priceChanged = Observable.Timer(TimeSpan.FromSeconds(0),
+                TimeSpan.FromMilliseconds(RefreshTime)).Select((x) => rnd.Next(-10, 10));
 
-        /// <summary>
-        /// Loop to update the stock price
-        /// </summary>
-        void UpdatePrice()
-        {
-            Random rnd = new Random();
-            while (!_stop)
-            {
-                int priceChange = rnd.Next(-10, 10);
-                _price += priceChange;
-                ChangePrice(priceChange);
-
-                Thread.Sleep(RefreshTime);
-            }
-        }        
-
-        void ChangePrice(int priceChange)
-        {
-            _priceChanged.OnNext(priceChange);
-        }
-
-        public void Dispose()
-        {
-            _stop = true;
-        }        
+            _priceChanged.Subscribe(x => _price += x);
+        }      
     }
 }
