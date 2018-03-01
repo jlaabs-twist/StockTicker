@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace StockTicker.Interfaces
 {
-    public interface ITicker:IDisposable
+    public interface ITicker : IDisposable
     {
         string Name { get; }
         int Price { get; }
-        event EventHandler<int> PriceChanged;
+        IObservable<int> PriceChanged { get; }
     }
 }

@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using StockTicker.Interfaces;
+using System.Reactive.Subjects;
+using System.Reactive.Linq;
 
 namespace StockTicker.Models
 {
@@ -13,9 +15,8 @@ namespace StockTicker.Models
         const int RefreshTime = 250;
         string _name;
         int _price;
-        bool _stop = false;
-
-        public event EventHandler<int> PriceChanged;
+        IObservable<int> _priceChanged;
+        IDisposable _updatePrice;
 
         public string Name
         {
@@ -25,6 +26,11 @@ namespace StockTicker.Models
         public int Price
         {
             get { return _price; }
+        }
+
+        public IObservable<int> PriceChanged
+        {
+            get { return _priceChanged; }
         }
         
         /// <summary>
@@ -37,33 +43,19 @@ namespace StockTicker.Models
             Random rnd = new Random();
             _price = rnd.Next(0, 1000);
 
-            Task.Run(() => UpdatePrice());
-        }       
+            _priceChanged = Observable.Timer(TimeSpan.FromSeconds(0),
+                TimeSpan.FromMilliseconds(RefreshTime)).Select((x) => rnd.Next(-10, 10));
 
-        /// <summary>
-        /// Loop to update the stock price
-        /// </summary>
-        void UpdatePrice()
-        {
-            Random rnd = new Random();
-            while (!_stop)
-            {
-                int priceChange = rnd.Next(-10, 10);
-                _price += priceChange;
-                OnPriceChanged(priceChange);
-
-                Thread.Sleep(RefreshTime);
-            }
-        }        
-
-        void OnPriceChanged(int priceChange)
-        {
-            PriceChanged?.Invoke(this, priceChange);
+            _updatePrice = _priceChanged.Subscribe(x => _price += x);
         }
-
+        
         public void Dispose()
         {
-            _stop = true;
+            if (_updatePrice != null)
+            {
+                _updatePrice.Dispose();
+                _updatePrice = null;
+            }
         }
     }
 }
