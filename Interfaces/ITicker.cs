@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StockTicker.Interfaces
 {
-    public interface ITicker
+    public interface ITicker : IDisposable
     {
         string Name { get; }
         int Price { get; }

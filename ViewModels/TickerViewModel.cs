@@ -9,7 +9,7 @@ using StockTicker.Interfaces;
 
 namespace StockTicker.ViewModels
 {
-    public class TickerViewModel: INotifyPropertyChanged
+    public class TickerViewModel: INotifyPropertyChanged, IDisposable
     {
         ITicker _ticker;
         IDisposable _priceChangeSubscription;
@@ -81,13 +81,27 @@ namespace StockTicker.ViewModels
         public void OnPriceChanged(int priceChange)
         {
             PriceChange = priceChange;
-            Price += priceChange;            
+            Price += priceChange;
         }
 
         void OnPropertyChanged(string property)
         {
             PropertyChangedEventArgs args = new PropertyChangedEventArgs(property);
             PropertyChanged?.Invoke(this, args);
+        }
+
+        public void Dispose()
+        {
+            if (_priceChangeSubscription != null)
+            {
+                _priceChangeSubscription.Dispose();
+                _priceChangeSubscription = null;
+            }
+            if(_ticker != null)
+            {
+                _ticker.Dispose();
+                _ticker = null;
+            }
         }
     }
 }

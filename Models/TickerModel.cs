@@ -10,12 +10,13 @@ using System.Reactive.Linq;
 
 namespace StockTicker.Models
 {
-    public class TickerModel : ITicker
+    public class TickerModel : ITicker, IDisposable
     {
         const int RefreshTime = 250;
         string _name;
         int _price;
         IObservable<int> _priceChanged;
+        IDisposable _updatePrice;
 
         public string Name
         {
@@ -45,7 +46,16 @@ namespace StockTicker.Models
             _priceChanged = Observable.Timer(TimeSpan.FromSeconds(0),
                 TimeSpan.FromMilliseconds(RefreshTime)).Select((x) => rnd.Next(-10, 10));
 
-            _priceChanged.Subscribe(x => _price += x);
-        }      
+            _updatePrice = _priceChanged.Subscribe(x => _price += x);
+        }
+        
+        public void Dispose()
+        {
+            if (_updatePrice != null)
+            {
+                _updatePrice.Dispose();
+                _updatePrice = null;
+            }
+        }
     }
 }

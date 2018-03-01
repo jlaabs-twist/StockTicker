@@ -15,7 +15,7 @@ namespace StockTicker.Views
     {
         public TickerView()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
     }
 }

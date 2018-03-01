@@ -61,6 +61,7 @@ namespace StockTicker.ViewModels
         public void RemoveTicker()
         {
             int lastIndex = _tickers.Count - 1;
+            _tickers[lastIndex].Dispose();
             _tickers.RemoveAt(lastIndex);
             OnPropertyChanged("CanRemoveTicker");
         }
