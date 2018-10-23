@@ -10,6 +10,7 @@ namespace StockTicker.Models
 {
     public class TickerModel : ITicker, IDisposable
     {
+    //Testing sync back from github
         const int RefreshTime = 250;
         string _name;
         int _price;
