@@ -23,7 +23,7 @@ namespace StockTicker.Views
         public TickersView()
         {
             InitializeComponent();
-            //DataContext = new TickersViewModel();
+            //DataContexthhhh = new TickersViewModel();
         }
     }
 }
