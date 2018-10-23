@@ -15,6 +15,7 @@ namespace StockTicker.ViewModels
 {
     public class TickersViewModel: INotifyPropertyChanged
     {
+        //Testing another file change
         ITickerFactory _tickerFactory;
         ObservableCollection<TickerViewModel> _tickers;
 
