@@ -88,7 +88,7 @@ namespace StockTicker.ViewModels
             PropertyChangedEventArgs args = new PropertyChangedEventArgs(property);
             PropertyChanged?.Invoke(this, args);
         }
-
+        //Testing SparkleShare
         #region IDisposable Support
         public void Dispose()
         {
